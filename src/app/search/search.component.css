@@ -1,0 +1,30 @@
+[app-todo] {
+  height: 100%;
+  overflow: hidden;
+  background-color: #27c301bd;
+  color: #025f1b;
+}
+
+[app-cabecera] {
+  height: 120px;
+  padding: 0px 12px;
+  box-shadow: 1px 6px 18px 0px #025f1b;
+}
+
+[app-lanzamientos] {
+  height: calc(100% - 200px);
+  background-color: white;
+  color: #025f1b;
+  margin-top: 8px;
+  padding-top: 4px;
+  margin-bottom: -12px;
+}
+
+[app-pie] {
+  height: 64px;
+  box-shadow: 0px -5px 18px 0px #025f1b;
+}
+
+app-results-counter {
+  align-content: center;
+}

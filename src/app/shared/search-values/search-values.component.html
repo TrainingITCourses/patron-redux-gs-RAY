@@ -1,0 +1,7 @@
+<div app-valores *ngIf="data?.length > 0">
+  <h4>Ahora seleccione el valor:</h4>
+  <select (change)="onChange($event)">
+    <option value=""></option>
+    <option *ngFor="let a of dameData()" [value]="a.id">{{ a.name }}</option>
+  </select>
+</div>

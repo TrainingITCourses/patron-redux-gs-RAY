@@ -1,0 +1,14 @@
+<div app-todo>
+  <div app-cabecera>
+    <app-search-criteria app-cabecera-item (criteria)="onChangeCriteria($event)"></app-search-criteria>
+    <app-search-values app-cabecera-item [data]="_data" (value)="onChangeValue($event)"></app-search-values>
+  </div>
+
+  <div app-lanzamientos>
+    <app-launches [data]="_launches"></app-launches>
+  </div>
+
+  <div app-pie>
+    <app-results-counter [data]="_launches"></app-results-counter>
+  </div>
+</div>
