@@ -1,26 +1,52 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 
 @Injectable()
 export class ApiService {
-  constructor(private httpClient: HttpClient) { }
+
+  private _agencies: any[];
+  private _typesStatus: any[];
+  private _typesMissions: any[];
+
+  constructor(private httpClient: HttpClient) {
+    // forkJoin(
+    //   this.getAgencies(),
+    //   this.getTypesStatus(),
+    //   this.getTypesMissions()
+    // )
+    // .map(
+    //   res => this.join({
+    //     this._agencies = res[0];
+        
+    //   })
+    // )
+  }
   
   public getAgencies = () : Observable<any> => 
-    this.httpClient
-      .get("../../assets/launchagencies.json")
-      .pipe(map((res: any) => res.agencies));
+  this.httpClient.get("../../assets/launchagencies.json");
 
-  public getTypesStatus = () : Observable<any[]> => 
-    this.httpClient
-      .get("../../assets/launchstatus.json")
-      .pipe(map((res: any) => res.types));
+  public getTypesStatus = () : Observable<any> => 
+    this.httpClient.get("../../assets/launchstatus.json");
 
-  public getTypesMissions = () : Observable<any[]> => 
-    this.httpClient
-      .get("../../assets/launchmissions.json")
-      .pipe(map((res: any) => res.types));
+  public getTypesMissions = () : Observable<any> => 
+    this.httpClient.get("../../assets/launchmissions.json");
+
+  // public getAgencies = () : Observable<any> => 
+  //   this.httpClient
+  //     .get("../../assets/launchagencies.json")
+  //     .pipe(map((res: any) => res.agencies));
+
+  // public getTypesStatus = () : Observable<any[]> => 
+  //   this.httpClient
+  //     .get("../../assets/launchstatus.json")
+  //     .pipe(map((res: any) => res.types));
+
+  // public getTypesMissions = () : Observable<any[]> => 
+  //   this.httpClient
+  //     .get("../../assets/launchmissions.json")
+  //     .pipe(map((res: any) => res.types));
 
   
   public getLaunches = (criteria: string, id: number) : Observable<any[]> => 
