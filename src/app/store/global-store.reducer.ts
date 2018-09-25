@@ -1,7 +1,7 @@
 import { GlobalActions, GlobalActionTypes } from './global-store.actions';
-import { globalInitialState, Global } from './models/global.model';
+import { Global, globalInitialState } from './models/global.model';
 
-export function globalStoreReducer( state: globalInitialState, action: GlobalActions ): Global {
+export function globalStoreReducer( state = globalInitialState, action: GlobalActions ): Global {
   const result = { ...state };
  
   switch (action.type) {

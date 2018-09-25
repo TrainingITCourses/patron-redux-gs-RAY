@@ -23,26 +23,26 @@ export class SearchComponent implements OnInit {
 
     this._criteria = criteria;
     this._launches = [];
-    switch (criteria) {
-      case 'Agencia':
-        this.api
-          .getAgencies()
-          .subscribe((res: any[]) => this._data = res);
-        break;
-      case 'Estado':
-        this.api
-          .getTypesStatus()
-          .subscribe((res: any[]) => this._data = res);
-        break;
-      case 'Tipo':
-        this.api
-          .getTypesMissions()
-          .subscribe((res: any[]) => this._data = res);
-        break;
-      default:
-        this._data = [];
-        break;
-    }
+    // switch (criteria) {
+    //   case 'Agencia':
+    //     this.api
+    //       .getAgencies()
+    //       .subscribe((res: any[]) => this._data = res);
+    //     break;
+    //   case 'Estado':
+    //     this.api
+    //       .getTypesStatus()
+    //       .subscribe((res: any[]) => this._data = res);
+    //     break;
+    //   case 'Tipo':
+    //     this.api
+    //       .getTypesMissions()
+    //       .subscribe((res: any[]) => this._data = res);
+    //     break;
+    //   default:
+    //     this._data = [];
+    //     break;
+    // }
   }
 
   onChangeValue = (value: number) => {

@@ -2,53 +2,38 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable, forkJoin } from 'rxjs';
+import { GlobalStore } from '../store/global-store.state';
+import { LoadAgencies, LoadTypesStatus, LoadTypesMissions } from '../store/global-store.actions';
 
 @Injectable()
 export class ApiService {
 
-  private _agencies: any[];
-  private _typesStatus: any[];
-  private _typesMissions: any[];
 
-  constructor(private httpClient: HttpClient) {
-    // forkJoin(
-    //   this.getAgencies(),
-    //   this.getTypesStatus(),
-    //   this.getTypesMissions()
-    // )
-    // .map(
-    //   res => this.join({
-    //     this._agencies = res[0];
-        
-    //   })
-    // )
+  constructor(
+    private httpClient: HttpClient,
+    private globalStore: GlobalStore) {
+
+    forkJoin(
+      this.getAgencies(),
+      this.getTypesStatus(),
+      this.getTypesMissions()
+    )
+    .subscribe(( [agencies, typesStatus, typesMissions] ) => {
+      globalStore.dispatch(new LoadAgencies( agencies ));
+      globalStore.dispatch(new LoadTypesStatus( typesStatus ));
+      globalStore.dispatch(new LoadTypesMissions( typesMissions ));
+    })
   }
   
-  public getAgencies = () : Observable<any> => 
+  private getAgencies = () : Observable<any> => 
   this.httpClient.get("../../assets/launchagencies.json");
 
-  public getTypesStatus = () : Observable<any> => 
+  private getTypesStatus = () : Observable<any> => 
     this.httpClient.get("../../assets/launchstatus.json");
 
-  public getTypesMissions = () : Observable<any> => 
+  private getTypesMissions = () : Observable<any> => 
     this.httpClient.get("../../assets/launchmissions.json");
 
-  // public getAgencies = () : Observable<any> => 
-  //   this.httpClient
-  //     .get("../../assets/launchagencies.json")
-  //     .pipe(map((res: any) => res.agencies));
-
-  // public getTypesStatus = () : Observable<any[]> => 
-  //   this.httpClient
-  //     .get("../../assets/launchstatus.json")
-  //     .pipe(map((res: any) => res.types));
-
-  // public getTypesMissions = () : Observable<any[]> => 
-  //   this.httpClient
-  //     .get("../../assets/launchmissions.json")
-  //     .pipe(map((res: any) => res.types));
-
-  
   public getLaunches = (criteria: string, id: number) : Observable<any[]> => 
     this.httpClient
       .get("../../assets/launchlibrary.json")
