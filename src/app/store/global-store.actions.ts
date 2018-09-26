@@ -1,7 +1,9 @@
 export enum GlobalActionTypes {
    loadAgencies,
    loadTypesStatus,
-   loadTypesMissions
+   loadTypesMissions,
+   changeCriteria,
+   changeidValue
  }
  
  export interface Action {
@@ -23,5 +25,15 @@ export enum GlobalActionTypes {
    public type = GlobalActionTypes.loadTypesMissions;
    constructor (public readonly payload?: any) {}
  }
+
+ export class ChangeCriteria implements Action {
+   public type = GlobalActionTypes.changeCriteria;
+   constructor (public readonly payload?: string) {}
+ }
+
+ export class ChangeidValue implements Action {
+  public type = GlobalActionTypes.changeidValue;
+  constructor (public readonly payload?: number) {}
+}
  
- export type GlobalActions = LoadAgencies | LoadTypesStatus | LoadTypesMissions;
+ export type GlobalActions = LoadAgencies | LoadTypesStatus | LoadTypesMissions | ChangeCriteria | ChangeidValue;

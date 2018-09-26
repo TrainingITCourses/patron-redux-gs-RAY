@@ -5,23 +5,24 @@ import { Observable, forkJoin } from 'rxjs';
 import { GlobalStore } from '../store/global-store.state';
 import { LoadAgencies, LoadTypesStatus, LoadTypesMissions } from '../store/global-store.actions';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ApiService {
 
 
   constructor(
     private httpClient: HttpClient,
-    private globalStore: GlobalStore) {
+    private globalStore: GlobalStore) { }
 
+  public getData = () => {
     forkJoin(
       this.getAgencies(),
       this.getTypesStatus(),
       this.getTypesMissions()
     )
-    .subscribe(( [agencies, typesStatus, typesMissions] ) => {
-      globalStore.dispatch(new LoadAgencies( agencies ));
-      globalStore.dispatch(new LoadTypesStatus( typesStatus ));
-      globalStore.dispatch(new LoadTypesMissions( typesMissions ));
+    .subscribe(( [res1, res2, res3] ) => {
+      this.globalStore.dispatch(new LoadAgencies( res1.agencies ));
+      this.globalStore.dispatch(new LoadTypesStatus( res2.types ));
+      this.globalStore.dispatch(new LoadTypesMissions( res3.types ));
     })
   }
   

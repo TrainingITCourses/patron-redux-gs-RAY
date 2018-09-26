@@ -1,4 +1,6 @@
-import { Component, OnInit, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { GlobalStore } from './../../store/global-store.state';
+import { ChangeCriteria } from './../../store/global-store.actions';
 
 @Component({
   selector: 'app-search-criteria',
@@ -7,17 +9,14 @@ import { Component, OnInit, EventEmitter, Output, ChangeDetectionStrategy } from
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchCriteriaComponent implements OnInit {
-
-  @Output() public criteria = new EventEmitter<string>();
-
-  constructor() { }
-
+  
+  constructor(private globalStore: GlobalStore) { }
+ 
   ngOnInit() {
   }
 
   onChange = (event) => {
-    console.log('onChange - criteria');
-    this.criteria.next(event.srcElement.value);
+    this.globalStore.dispatch(new ChangeCriteria( event.srcElement.value ));
   }
 
 }

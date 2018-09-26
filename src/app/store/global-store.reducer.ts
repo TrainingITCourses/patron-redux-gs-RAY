@@ -14,6 +14,12 @@ export function globalStoreReducer( state = globalInitialState, action: GlobalAc
     case GlobalActionTypes.loadTypesMissions:
       result.typesMissions = action.payload;
       break;
+    case GlobalActionTypes.changeCriteria:
+      result.criteria = action.payload;
+      break;
+    case GlobalActionTypes.changeidValue:
+      result.idValue = action.payload;
+      break;
   }
  
   return result;

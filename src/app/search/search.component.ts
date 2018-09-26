@@ -1,56 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../services/api.service';
+import { Observable } from 'rxjs';
+import { ApiService } from './../services/api.service';
+import { GlobalStore, GlobalSlideTypes } from './../store/global-store.state';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
-  providers: [ApiService]
 })
 export class SearchComponent implements OnInit {
 
-  private _criteria: string;
-  private _data: any[];
-  private _valueId: number
   private _launches: any[];
+  public values$: Observable<any>;
 
-  constructor(private api : ApiService) { }
+  constructor(private api : ApiService, 
+              private globalStore : GlobalStore) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.api.getData();
 
-  onChangeCriteria = (criteria: string) => {
-    console.log('onChangeCriteria: ' + criteria);
-
-    this._criteria = criteria;
-    this._launches = [];
-    // switch (criteria) {
-    //   case 'Agencia':
-    //     this.api
-    //       .getAgencies()
-    //       .subscribe((res: any[]) => this._data = res);
-    //     break;
-    //   case 'Estado':
-    //     this.api
-    //       .getTypesStatus()
-    //       .subscribe((res: any[]) => this._data = res);
-    //     break;
-    //   case 'Tipo':
-    //     this.api
-    //       .getTypesMissions()
-    //       .subscribe((res: any[]) => this._data = res);
-    //     break;
-    //   default:
-    //     this._data = [];
-    //     break;
-    // }
+    this.globalStore.select$( GlobalSlideTypes.idValue )
+      .subscribe( idValue => this.onChangeValue(idValue) )
   }
 
-  onChangeValue = (value: number) => {
-    console.log('onChangeValue: ' + value);
+  onChangeValue = (idValue: number) => {
+    console.log('onChangeValue: ' + idValue);
 
-    this._valueId = value;
     this.api
-      .getLaunches(this._criteria, this._valueId)
+      .getLaunches(<string>this.globalStore.getSnapshot( GlobalSlideTypes.criteria ) , idValue)
       .subscribe((res: any[]) => this._launches = res);
   }
 
