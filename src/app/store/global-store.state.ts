@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Global, globalInitialState } from './models/global.model';
 import { GlobalActionTypes, GlobalActions } from './global-store.actions';
 import { globalStoreReducer } from './global-store.reducer';
+import { eCriteria } from './../shared/search-criteria/search-criteria-enum';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class GlobalStore {
   private typesStatus$ = new BehaviorSubject<any>(this.state.typesStatus);
   private typesMissions$ = new BehaviorSubject<any>(this.state.typesMissions);
 
-  private criteria$ = new BehaviorSubject<string>(this.state.criteria);
+  private criteria$ = new BehaviorSubject<eCriteria>(this.state.criteria);
   private idValue$ = new BehaviorSubject<number>(this.state.idValue);
 
   constructor() { }

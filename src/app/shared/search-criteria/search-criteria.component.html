@@ -1,9 +1,8 @@
 <div app-criterio>
   <h3>Seleccione el criterio de búsqueda:</h3>
   <select (change)="onChange($event)">
-    <option value=""></option>
-    <option value="Estado">Estado del lanzamiento</option>
-    <option value="Agencia">Agencia responsable</option>
-    <option value="Tipo">Tipo de misión</option>
+    <option selected value="0">Estado del lanzamiento</option>
+    <option value="1">Agencia responsable</option>
+    <option value="2">Tipo de misión</option>
   </select>
 </div>

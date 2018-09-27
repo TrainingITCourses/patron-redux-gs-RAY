@@ -1,6 +1,9 @@
 import { GlobalSlideTypes, GlobalStore } from './../../store/global-store.state';
 import { Observable } from 'rxjs';
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeidValue } from '../../store/global-store.actions';
+import { eCriteria } from './../search-criteria/search-criteria-enum';
 
 @Component({
   selector: 'app-search-values',
@@ -10,60 +13,28 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy
 })
 export class SearchValuesComponent implements OnInit {
 
-  // @Input() public data: any[];
-  @Output() public value = new EventEmitter<number>();
-
   public values$: Observable<any>;
 
   constructor(private globalStore: GlobalStore) { }
 
   ngOnInit() {
-    // this.values$ = this.globalStore.select$(GlobalSlideTypes.agencies);
-    this.globalStore.select$(GlobalSlideTypes.criteria)
-      .subscribe(criteria =>
-
-      // this.values$ = this.globalStore.select$(GlobalSlideTypes.agencies));
-
-      {
+    this.values$ = this.globalStore.select$(GlobalSlideTypes.criteria).pipe(
+      switchMap((criteria: eCriteria) => {
+        console.log('Criterio: ' + criteria);
         switch (criteria) {
-          case 'Agencia':
-            console.log('onChangeCriteria1: ' + criteria);
-            this.values$ = this.globalStore.select$(GlobalSlideTypes.agencies);
-            break;
-          case 'Estado':
-            console.log('onChangeCriteria2: ' + criteria);
-            this.values$ = this.globalStore.select$(GlobalSlideTypes.typesStatus);
-            break;
-          case 'Tipo':
-            console.log('onChangeCriteria3: ' + criteria);
-            this.values$ = this.globalStore.select$(GlobalSlideTypes.typesMissions);
-            break;
+          case eCriteria.Agencia:
+            return this.globalStore.select$(GlobalSlideTypes.agencies);
+          case eCriteria.Estado:
+            return this.globalStore.select$(GlobalSlideTypes.typesStatus);
+          case eCriteria.Tipo:
+            return this.globalStore.select$(GlobalSlideTypes.typesMissions);
         }
-        return this.values$;
-      });
-  }
-
-  onChangeCriteria = (criteria: string): Observable<any> => {
-    console.log('onChangeCriteria: ' + criteria);
-
-    switch (criteria) {
-      case 'Agencia':
-        return this.globalStore.select$(GlobalSlideTypes.agencies);
-      case 'Estado':
-        return this.globalStore.select$(GlobalSlideTypes.typesStatus);
-      case 'Tipo':
-        return this.globalStore.select$(GlobalSlideTypes.typesMissions);
-    }
+      })
+    );
   }
 
   onChange = (event) => {
-    console.log('onChange - values');
-    this.value.next(+event.srcElement.value);
-  }
-
-  dameData = () => {
-    console.log('dameData - values');
-    // return this.data;
+    this.globalStore.dispatch(new ChangeidValue( +event.srcElement.value ));
   }
 
 }

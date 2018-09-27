@@ -1,3 +1,5 @@
+import { eCriteria } from './../shared/search-criteria/search-criteria-enum';
+
 export enum GlobalActionTypes {
    loadAgencies,
    loadTypesStatus,
@@ -28,7 +30,7 @@ export enum GlobalActionTypes {
 
  export class ChangeCriteria implements Action {
    public type = GlobalActionTypes.changeCriteria;
-   constructor (public readonly payload?: string) {}
+   constructor (public readonly payload?: eCriteria) {}
  }
 
  export class ChangeidValue implements Action {

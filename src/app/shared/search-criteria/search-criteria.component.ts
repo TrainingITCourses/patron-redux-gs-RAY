@@ -16,7 +16,7 @@ export class SearchCriteriaComponent implements OnInit {
   }
 
   onChange = (event) => {
-    this.globalStore.dispatch(new ChangeCriteria( event.srcElement.value ));
+    this.globalStore.dispatch(new ChangeCriteria( +event.srcElement.value ));
   }
 
 }
