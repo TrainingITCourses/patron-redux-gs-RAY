@@ -8,20 +8,12 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 })
 export class ResultsCounterComponent implements OnInit {
 
-  @Input() public data: any[];
+  @Input() public countLaunches: number;
 
   constructor() { }
 
   ngOnInit() {
-  }
-
-  dameNumLanzamientos = () => {
-    console.log('Pasamos por dameNumLanzamientos');
-    if (this.data) {
-      return this.data.length;
-    } else {
-      return 0;
-    }
+    console.log('lanzamientos: ' + this.countLaunches);
   }
 
 }

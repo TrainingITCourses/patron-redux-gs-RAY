@@ -1,4 +1,6 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { GlobalStore, GlobalSlideTypes } from './../store/global-store.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-launches',
@@ -8,16 +10,12 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
 })
 export class LaunchesComponent implements OnInit {
 
-  @Input() public data: any[];
+  constructor(private globalStore: GlobalStore) { }
 
-  constructor() { }
+  private launches$: Observable<any>;
 
   ngOnInit() {
-  }
-
-  dameData = () => {
-    console.log('Pasamos por dameData');
-    return this.data;
+    this.launches$ =  this.globalStore.select$( GlobalSlideTypes.launchesFilter );
   }
 
 }

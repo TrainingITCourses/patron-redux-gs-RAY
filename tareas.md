@@ -16,3 +16,11 @@ Requerimientos
    Implementar el patrón redux con al menos tres acciones
    Modificar el estado del store despachando acciones
    Consumir el estado del store mediante selectores observables y snapshot
+
+
+
+
+RAY {
+   Crear interfaces para todos los objetos (filtrando las properties)
+   Ordenar los arrays
+}
