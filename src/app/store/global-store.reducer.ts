@@ -23,6 +23,8 @@ export function globalStoreReducer( state = globalInitialState, action: GlobalAc
       break;
     case GlobalActionTypes.changeCriteria:
       result.criteria = action.payload;
+      result.launchesFilter = [];
+      result.numberFilter = 0;
       break;
     case GlobalActionTypes.changeidValue:
       result.idValue = action.payload;

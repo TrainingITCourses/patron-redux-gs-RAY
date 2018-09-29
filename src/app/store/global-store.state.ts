@@ -44,6 +44,7 @@ export class GlobalStore {
       case GlobalActionTypes.changeCriteria:
         let newCriteria = this.state.criteria; // RAY (26/09/18) Al ser un tipo primitivo esta asignación devuelve una copia
         this.criteria$.next( newCriteria );
+        this.launchesFilter$.next([ ...this.state.launchesFilter ]); // También actualizamos el cambio de los lanzamientos filtrados
         break;
       case GlobalActionTypes.changeidValue:
         let newidValue = this.state.idValue; // RAY (26/09/18) Al ser un tipo primitivo esta asignación devuelve una copia

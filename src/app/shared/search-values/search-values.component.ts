@@ -18,19 +18,18 @@ export class SearchValuesComponent implements OnInit {
   constructor(private globalStore: GlobalStore) { }
 
   ngOnInit() {
-    this.values$ = this.globalStore.select$(GlobalSlideTypes.criteria).pipe(
-      switchMap((criteria: eCriteria) => {
-        console.log('Criterio: ' + criteria);
-        switch (criteria) {
-          case eCriteria.Agencia:
-            return this.globalStore.select$(GlobalSlideTypes.agencies);
-          case eCriteria.Estado:
-            return this.globalStore.select$(GlobalSlideTypes.typesStatus);
-          case eCriteria.Tipo:
-            return this.globalStore.select$(GlobalSlideTypes.typesMissions);
-        }
-      })
-    );
+    this.values$ = this.globalStore.select$(GlobalSlideTypes.criteria)
+    .pipe(switchMap((criteria: eCriteria) => {
+      console.log('Criterio: ' + criteria);
+      switch (criteria) {
+        case eCriteria.Agencia:
+          return this.globalStore.select$(GlobalSlideTypes.agencies);
+        case eCriteria.Estado:
+          return this.globalStore.select$(GlobalSlideTypes.typesStatus);
+        case eCriteria.Tipo:
+          return this.globalStore.select$(GlobalSlideTypes.typesMissions);
+      }
+    }));
   }
 
   onChange = (event) => {

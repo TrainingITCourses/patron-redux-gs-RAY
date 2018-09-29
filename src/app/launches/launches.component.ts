@@ -15,7 +15,7 @@ export class LaunchesComponent implements OnInit {
   private launches$: Observable<any>;
 
   ngOnInit() {
-    this.launches$ =  this.globalStore.select$( GlobalSlideTypes.launchesFilter );
+    this.launches$ = this.globalStore.select$( GlobalSlideTypes.launchesFilter );
   }
 
 }
